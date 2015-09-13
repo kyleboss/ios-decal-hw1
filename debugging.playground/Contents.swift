@@ -15,11 +15,11 @@ class Foo {
     var wordB : String!
     
     init (words: [String?]) {
-        wordA = words[0]?
-        wordB = words[1]?
+        wordA = words[0]
+        wordB = words[1]
     }
     
-//: [EXPLAIN YOUR ANSWER TO Q1 HERE]
+//: The line "init (words: [String?]) {" already demonstrates that what is inside is in fact an optional. So defining words[0] and words[1] to be optionals as well is just repeating itself.
     
 
     
@@ -28,28 +28,29 @@ class Foo {
     
     func arePalindromes(words: [String]) -> Bool! {
         let reversedWords = words.map() {String($0.characters.reverse())}
-        var numElements = words.count
+        let numElements = words.count
         
-        for let i = 0; i < numElements; i++ {
+        for var i = 0; i < numElements; i++ {
             if words[i] != reversedWords[i] {
                 return false
             }
         }
         
-        return nil
+        return true
     }
     
-//: [EXPLAIN YOUR ANSWER TO Q2 HERE]
-    
+//:    Let signifies that i will be a constant. However, on the same line, i is incremented thus the value is changed, breaking the promise that i is actually constant.
+//:
+//:    It should return true on the penultimate line.
     
     
 //: ## Q3: More functions, and object initialization
 //: The method should be returning true or false -- what's wrong?
 //: Are we initializing the dictionary correctly?
     func isAnagram(wordA: String, wordB: String) -> Bool? {
-        var countLetters : [Character : Int]
-        var lenA = wordA.characters.count
-        var lenB = wordB.characters.count
+        var countLetters : [Character : Int] = [:];
+        let lenA = wordA.characters.count
+        let lenB = wordB.characters.count
         
         if lenA != lenB {
             return false
@@ -81,11 +82,11 @@ class Foo {
             }
         }
         
-        return nil
+        return true
     }
 }
 
-//: [EXPLAIN YOUR ANSWER TO Q3 HERE]
+//: The problem here is that the dictionary is being defined, but it is never actually initialized. So when the playground attempts to access the pointer to an element in the dictionary, it runs into issues.
 
 
 //: **Do not** change anything below.
